@@ -1,0 +1,67 @@
+import time                      # To measure how long sorting takes
+import random                    # To generate random arrays
+import plotter                   # For graphing the results
+from sort import insertion_sort, merge_sort, quick_sort, quick_insertion_sort  # Import your sorting functions
+
+# Function to time how long a sort function takes
+def sort_function_timer(sort_function, an_array):
+    begin = time.perf_counter()         # Start timing
+    sort_function(an_array)             # Run the sort
+    end = time.perf_counter()           # Stop timing
+    elapsed = end - begin               # Calculate elapsed time
+    return elapsed                      # Return how long it took
+
+# Generate arrays of increasing sizes with random numbers
+def generate_random_arrays(sizes):
+    arrays = []
+    for size in sizes:
+        array = [random.randint(0, 1000) for _ in range(size)]  # Create array of random ints
+        arrays.append(array)
+    return arrays
+
+# Plot timing for unsorted random arrays
+def plot_sort_time_using_arrays(sort_function, arrays):
+    print("timing", sort_function.__name__)   # Print which sort is running
+    plotter.new_series()                      # Start a new line in the graph
+
+    for array in arrays:
+        array_copy = array.copy()                     # Make a copy so original isn't changed
+        time_taken = sort_function_timer(sort_function, array_copy)  # Time the sort
+        plotter.add_data_point(time_taken)            # Add result to graph
+
+# Plot timing for already sorted arrays
+def plot_sort_time_using_sorted_z(sort_function, arrays):
+    print("timing on sorted arrays:", sort_function.__name__)  # Print which sort is running
+    plotter.new_series()                                       # Start a new line/series
+
+    for array in arrays:
+        sorted_array = sorted(array)                           # Sort the array before timing
+        time_taken = sort_function_timer(sort_function, sorted_array)  # Time the sort
+        plotter.add_data_point(time_taken)                     # Add result to graph
+
+# Main function to run all plots
+def main():
+    sizes = [200, 500, 800, 1100, 1400, 1700, 2000]     # Array sizes to test
+    arrays = generate_random_arrays(sizes)              # Make random arrays
+
+    plotter.init("Sort Time Comparison", "Input Size", "Time (s)")  # Set up the graph
+
+    # Test all sort functions on unsorted random arrays
+    for sort in [insertion_sort, merge_sort, quick_sort, quick_insertion_sort]:
+        plot_sort_time_using_arrays(sort, arrays)
+
+    # Test all sort functions on pre-sorted arrays
+    for sort in [insertion_sort, merge_sort, quick_sort, quick_insertion_sort]:
+        plot_sort_time_using_sorted_z(sort, arrays)
+
+    #test for task 5 only with the 3 required sorts
+    for sort in [insertion_sort, merge_sort, quick_insertion_sort]: 
+        plot_sort_time_using_arrays(sort, arrays)
+
+
+    plotter.plot()             # Show the graph
+    input("Press Enter to exit...")  # Keep the graph window open
+
+
+if __name__ == "__main__":
+    main()

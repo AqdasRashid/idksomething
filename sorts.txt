@@ -1,0 +1,68 @@
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i-1
+        while j >= 0 and key < arr[j]:
+            arr[j+1] = arr[j]
+            j -= 1
+        arr[j+1] = key
+    return arr
+
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr)//2
+        L = arr[:mid]
+        R = arr[mid:]
+        merge_sort(L)
+        merge_sort(R)
+        
+        i = j = k = 0
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+            
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+            
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+    return arr
+
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr)//2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+
+
+def quick_insertion_sort(an_array):
+    # Use insertion sort if array is small (threshold = 10 here)
+    if len(an_array) < 10:
+        for i in range(1, len(an_array)):
+            key = an_array[i]
+            j = i - 1
+            while j >= 0 and an_array[j] > key:
+                an_array[j + 1] = an_array[j]
+                j -= 1
+            an_array[j + 1] = key
+        return an_array  # Return after insertion sort
+
+    # Otherwise, do quick sort
+    pivot = an_array[0]                     # Pick the first element as pivot
+    left = [x for x in an_array[1:] if x <= pivot]  # Smaller or equal elements
+    right = [x for x in an_array[1:] if x > pivot]  # Larger elements
+
+    # Recursively sort and combine
+    return quick_insertion_sort(left) + [pivot] + quick_insertion_sort(right)
