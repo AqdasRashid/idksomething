@@ -1,0 +1,40 @@
+import country
+
+class HappinessMeter:
+    def __init__(self):
+        self.countries = []  # List to store country objects
+
+    def add_country(self, country):
+        self.countries.append(country)  # Add a country to the list
+
+    def measure_happiness(self):
+        print("\nHappiness Measurement:")
+        for country in self.countries:
+            happiness_index = country.get_happiness_index()
+            print(country.get_name() + " : " + str(round(happiness_index, 2)))  # Round to 2 decimal places
+
+
+
+
+def main():
+
+    happiness_meter = HappinessMeter()  # Create a HappinessMeter instance
+
+    num_countries = int(input("Enter the number of countries: "))
+
+    for i in range(num_countries):
+        name = input("Enter the name of country " + str(i + 1) + ": ")
+        environment = int(input("Enter environment factor (0-100): "))
+        economy = int(input("Enter economy factor (0-100): "))
+        culture = int(input("Enter culture factor (0-100): "))
+        healthcare = int(input("Enter healthcare factor (0-100): "))
+        education = int(input("Enter education factor (0-100): "))
+
+        user_country =country.Country(name, environment, economy, culture, healthcare, education)
+        happiness_meter.add_country(user_country)
+
+    happiness_meter.measure_happiness()
+
+
+if __name__ == "__main__":
+    main()

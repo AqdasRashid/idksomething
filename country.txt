@@ -1,0 +1,54 @@
+class Country:
+    def __init__(self, __name, __environment, __economy, __culture, __healthcare, __education):
+        self.__name = __name
+        self.__environment = __environment
+        self.__economy = __economy
+        self.__culture = __culture
+        self.__healthcare = __healthcare
+        self.__education = __education
+
+    # mutators
+    def get_name(self):
+        return self.__name
+
+    def get_environment(self):
+        return self.__environment
+
+    def get_economy(self):
+        return self.__economy
+
+    def get_culture(self):
+        return self.__culture
+
+    def get_healthcare(self):
+        return self.__healthcare
+
+    def get_education(self):
+        return self.__education
+
+    # accessors
+    def set_name(self, new_name):
+        self.__name = new_name
+
+    def set_environment(self, new_environment):
+        self.__environment = new_environment
+
+    def set_economy(self, new_economy):
+        self.__economy = new_economy
+
+    def set_culture(self, new_culture):
+        self.__culture = new_culture
+
+    def set_healthcare(self, new_healthcare):
+        self.__healthcare = new_healthcare
+
+    def set_education(self, new_education):
+        self.__education = new_education
+
+    # Method to calculate happiness index
+    def get_happiness_index(self):
+        return (self.__environment + self.__economy + self.__culture + self.__healthcare + self.__education) / 5
+
+    # String representation of the country
+    def __str__(self):
+        return "Country Name: " + self.__name + "\nEnvironment: " + str(self.__environment) + "\nEconomy: " + str(self.__economy) + "\nCulture: " + str(self.__culture) + "\nHealthcare: " + str(self.__healthcare) + "\nEducation: " + str(self.__education)
